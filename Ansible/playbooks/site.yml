@@ -11,7 +11,7 @@
 - name: wordpress assignment
   import_playbook: ../static-assignments/wordpress.yml
 
-- hosts: tag_Name_ACS_jenkins
+- hosts: tag_Name_ACS_Jenkins
 - name: jenkins assignment
   import_playbook: ../static-assignments/jenkins.yml  
 

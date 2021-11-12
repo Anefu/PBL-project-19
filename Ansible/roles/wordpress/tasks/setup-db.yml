@@ -1,6 +1,11 @@
+- name: Install PyMySQL
+  pip:
+    name: pymysql
+    state: present
+    
 - name: create database
   community.mysql.mysql_db:
-    login_host: "terraform-2021111120025290270000000b.crrh6ajas8hr.us-east-1.rds.amazonaws.com" 
+    login_host: "terraform-2021111211063265400000000c.crrh6ajas8hr.us-east-1.rds.amazonaws.com" 
     login_user: "david"
     login_password: "devopspblproject"
     name: wordpress
@@ -15,7 +20,7 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   loop:
-    - { regexp: '^localhost', line: "terraform-2021111120025290270000000b.crrh6ajas8hr.us-east-1.rds.amazonaws.com" }
+    - { regexp: '^localhost', line: "terraform-2021111211063265400000000c.crrh6ajas8hr.us-east-1.rds.amazonaws.com" }
     - { regexp: '^username_here', line: "wordpress" }
     - { regexp: '^database_name_here', line: "wordpress" }
     - { regexp: '^password_here', line: "w0rdpr33$" }

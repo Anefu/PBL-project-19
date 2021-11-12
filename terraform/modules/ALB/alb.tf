@@ -141,7 +141,7 @@ resource "aws_lb_listener" "web-listener" {
 
 resource "aws_lb_listener_rule" "tooling-listener" {
   listener_arn = aws_lb_listener.web-listener.arn
-  priority     = 99
+  priority     = 99 
 
   action {
     type             = "forward"
@@ -150,7 +150,7 @@ resource "aws_lb_listener_rule" "tooling-listener" {
 
   condition {
     host_header {
-      values = ["tooling.oyindamola.gq"]
+      values = ["tooling.testprj10.tk"]
     }
   }
 }

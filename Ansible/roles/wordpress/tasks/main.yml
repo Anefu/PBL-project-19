@@ -1,7 +1,7 @@
 ---
 # tasks file for webserver
 - name: mounting share
-  command: sudo mount -t efs -o tls,accesspoint=fsap-07669e906adf5426c fs-08e7c3c24b7496c5c:/ /var/www
+  command: sudo mount -t efs -o tls,accesspoint=fsap-06a770f110ead9e3f fs-01d51a09393ef8846:/ /var/www
 
 - name: install httpd on the webserver
   ansible.builtin.yum:

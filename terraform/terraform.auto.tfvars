@@ -16,24 +16,24 @@ preferred_number_of_private_subnets = 4
 
 environment = "dev"
 
-ami-bastion = "ami-0dbc99375eba56ff4"
+ami-bastion = "ami-0b298a194eb6e20a3"
 
-ami-nginx = "ami-010bd88cc8f5997f3"
+ami-nginx = "ami-09bfda60f9545ec94"
 
-ami-web =   "ami-04a663ca0c2b22f48"
+ami-web =   "ami-08e24e4ee80335277"
 
-ami-sonar = "ami-0f8bd95a744e074b8"
+ami-sonar = "ami-0b8e677b0927cf1bd"
 
-keypair = "devops"
+keypair = "docker"
 
 master-password = "devopspblproject"
 
 master-username = "david"
 
-account_no = "696742900004"
+account_no = "224134489861"
 
 tags = {
-  Owner-Email     = "infradev-segun@darey.io"
+  Owner-Email     = "infradev-praise@darey.io"
   Managed-By      = "Terraform"
   Billing-Account = "1234567890"
 }

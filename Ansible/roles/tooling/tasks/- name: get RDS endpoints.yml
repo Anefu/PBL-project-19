@@ -1,0 +1,38 @@
+- name: get RDS endpoints
+  command: > 
+     aws rds describe-db-cluster-endpoints \
+       --db-cluster-identifier daviddb
+  register: rds_endpoint
+
+- name: print rds endpoint
+  debug:
+    msg: "{{ rds_endpoint.stdout | from_json | json_query('Endpoint[0]')}}" 
+
+
+- name: Input wordpress credentials
+  ansible.builtin.lineinfile:
+    path: /var/www/html/wp-config.php 
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regexp: '^localhost', line: "{{ rds_endpoint.stdout | from_json | json_query('Endpoint[0]')}}" }
+    - { regexp: '^username_here', line: "wordpress" }
+    - { regexp: '^database_name_here', line: "wordpress" }
+    - { regexp: '^password_here', line: "w0rdpr33$" }
+
+  
+# - name: mounting share(s)
+#   mount:
+#     path: "{{ item.dir }}"
+#     src: "{{ item.fs_id }}"
+#     fstype: efs
+#     opts: nosuid,noexec,defaults,tls,accesspoint=fsap-029f128912cbada9f
+#     state: mounted
+#   loop:
+#     - { dir: '/var/www/', fs_id: 'fs-1b73901d:/' }
+
+- name: Allow apache to modify /var/www/html
+  community.general.sefcontext:
+    target: /var/www/html/
+    ignore_selinux_state: yes
+    setype: httpd_sys_content_t

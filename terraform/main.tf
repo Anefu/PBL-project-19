@@ -1,32 +1,32 @@
 #############################
 ##creating bucket for s3 backend
 #########################
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "pbl-test-18"
+# resource "aws_s3_bucket" "terraform_state" {
+#   bucket = "pbl-test-18"
 
-  versioning {
-    enabled = true
-  }
-  force_destroy = true
+#   versioning {
+#     enabled = true
+#   }
+#   force_destroy = true
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-}
+#   server_side_encryption_configuration {
+#     rule {
+#       apply_server_side_encryption_by_default {
+#         sse_algorithm = "AES256"
+#       }
+#     }
+#   }
+# }
 
-resource "aws_dynamodb_table" "terraform_locks" {
-  name         = "terraform-locks"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "LockID"
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-}
+# resource "aws_dynamodb_table" "terraform_locks" {
+#   name         = "terraform-locks"
+#   billing_mode = "PAY_PER_REQUEST"
+#   hash_key     = "LockID"
+#   attribute {
+#     name = "LockID"
+#     type = "S"
+#   }
+# }
 
 
 # creating VPC
@@ -69,8 +69,8 @@ module "AutoScaling" {
   ami-web           = var.ami-web
   ami-bastion       = var.ami-bastion
   ami-nginx         = var.ami-nginx
-  desired_capacity  = 2
-  min_size          = 2
+  desired_capacity  = 1
+  min_size          = 1
   max_size          = 2
   web-sg            = [module.security.web-sg]
   bastion-sg        = [module.security.bastion-sg]
@@ -113,6 +113,6 @@ module "compute" {
   ami-sonar       = var.ami-sonar
   ami-jfrog       = var.ami-bastion
   subnets-compute = module.VPC.public_subnets-1
-  sg-compute      = [module.security.ALB-sg]
+  sg-compute      = [module.security.web-sg]
   keypair         = var.keypair
 }
