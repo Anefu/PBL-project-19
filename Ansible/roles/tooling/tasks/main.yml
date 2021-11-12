@@ -2,19 +2,11 @@
 - name: mounting share
   command: sudo mount -t efs -o tls,accesspoint=fsap-06a770f110ead9e3f fs-01d51a09393ef8846:/ /var/www
 
-- import_tasks: setup-site.yml
-
 - name: install httpd on the webserver
   ansible.builtin.yum:
     enablerepo: "BaseOS,AppStream"
     name: "httpd"
     state: present
-
-- name: ensure httpd is started and enabled
-  ansible.builtin.service:
-     name: httpd 
-     state: started 
-     enabled: yes
 
 - name: install PHP
   ansible.builtin.yum:
@@ -41,7 +33,13 @@
 
 - import_tasks: setup-db.yml
 
+- import_tasks: setup-site.yml
 
+- name: ensure httpd is started and enabled
+  ansible.builtin.service:
+     name: httpd 
+     state: started 
+     enabled: yes
 
 
 

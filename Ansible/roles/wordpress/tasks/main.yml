@@ -9,12 +9,6 @@
     name: "httpd"
     state: present
 
-- name: ensure httpd is started and enabled
-  ansible.builtin.service:
-     name: httpd 
-     state: started 
-     enabled: yes
-
 - name: install PHP
   ansible.builtin.yum:
     name:
@@ -38,8 +32,12 @@
      enabled: yes
   notify: Restart httpd
 
-
-
 - import_tasks: setup-site.yml
+
+- name: ensure httpd is started and enabled
+  ansible.builtin.service:
+     name: httpd 
+     state: started 
+     enabled: yes
 
 - import_tasks: setup-db.yml
